@@ -1,29 +1,64 @@
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+
+    var showBig = false;
+
+  var [clickCount, setClickCount] = useState(0);
+
+  const products = [
+    { title: 'Cabbage', isFruit: false, id: 1 },
+    { title: 'Garlic', isFruit: false, id: 2 },
+    { title: 'Apple', isFruit: true, id: 3 },
+  ];
+
+  var listItems =
+    products.map(product => <li key={product.id}>{product.title}</li>);
+
+  function onClicking() {
+    clickCount++;
+    setClickCount(clickCount);
+  }
+
+  var toShow;
+
+  if(showBig)
+  {
+    toShow =<h1>Hello Big letter</h1>;
+  }else
+  {
+    toShow =<h3>Hello small letter</h3>; 
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src="Octocat.png" className="App-logo" alt="logo" />
-        <p>
-          GitHub Codespaces <span className="heart">♥️</span> React
-        </p>
-        <p className="small">
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </p>
-      </header>
+      <h1>Hellooo</h1>
+      <ul>
+        {listItems}
+      </ul>
+      <NewButton clickTimes={clickCount} onClicked={onClicking} />
+      <NewButton clickTimes={clickCount} onClicked={onClicking} />
+      {toShow}
     </div>
   );
 }
 
 export default App;
+
+function NewButton({ clickTimes, onClicked }) {
+
+  function handleClick() {
+    onClicked();
+  }
+
+  return (
+    <div>
+      <button onClick={handleClick}>Click Button + {clickTimes}</button>
+    </div>
+  );
+}
+
+
+
+
